@@ -1,0 +1,6 @@
+# DB接続情報(本番の認証情報を含むため、絶対にpushしない)
+db_config.php
+
+# OS・エディタが自動生成するファイル
+.DS_Store
+Thumbs.db
