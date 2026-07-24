@@ -20,7 +20,7 @@
 <body>
     <div class="login-box">
         <h1>会員ログイン</h1>
-        <form method="POST" action="/jinzai_app/login_act.php">
+        <form method="POST" action="login_act.php">
             <label>
                 ログインID
                 <input type="text" name="lid" required>
