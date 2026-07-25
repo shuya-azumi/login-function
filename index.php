@@ -26,7 +26,7 @@ $view = '';
 while ($result = $stmt->fetch(PDO::FETCH_ASSOC)) {
     $view .= '<div class="card">';
     // detail.phpにidをGETで渡す(URLパラメータ)
-    $view .= '<a href="detail.php?id=' . $result['id'] . '">';
+    $view .= '<a href="detail.php?id=' . h($result['id']) . '">';
     $view .= '<strong>' . h($result['name']) . '</strong>';
     $view .= '<span class="job">' . h($result['job']) . '</span>';
     $view .= '</a>';
@@ -46,6 +46,7 @@ while ($result = $stmt->fetch(PDO::FETCH_ASSOC)) {
     header a { color: #fff; }
     main { max-width: 720px; margin: 32px auto; padding: 0 16px; }
     h1 { font-size: 22px; }
+    .entry-cta { display: inline-block; background: #2a7; color: #fff; text-decoration: none; padding: 10px 18px; border-radius: 6px; font-size: 14px; margin-bottom: 20px; }
     .card { background: #fff; padding: 16px; margin-bottom: 12px; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.1); }
     .card a { text-decoration: none; color: #222; display: flex; justify-content: space-between; }
     .job { color: #666; font-size: 14px; }
@@ -72,6 +73,8 @@ while ($result = $stmt->fetch(PDO::FETCH_ASSOC)) {
     </header>
     <main>
         <h1>人材一覧</h1>
+        <!-- 求職者側(公開)への導線。ここから entry.php で自分を登録できる -->
+        <a class="entry-cta" href="entry.php">＋ 求職者として無料登録する</a>
         <p style="color:#666; font-size:13px;">詳細情報の閲覧にはログインが必要です。</p>
         <?php if (empty($view)): ?>
             <p>まだ登録された人材がいません。</p>

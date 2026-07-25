@@ -46,6 +46,9 @@ $result = $stmt->fetch(PDO::FETCH_ASSOC);
     dt { color: #999; font-size: 13px; margin-top: 12px; }
     dd { margin: 0; font-size: 15px; }
     .back { display: inline-block; margin-top: 20px; }
+    .actions { margin-top: 24px; display: flex; gap: 12px; align-items: center; }
+    .edit-btn { background: #06c; color: #fff; text-decoration: none; padding: 8px 18px; border-radius: 4px; font-size: 14px; }
+    .delete-btn { background: #d33; color: #fff; border: none; padding: 8px 18px; border-radius: 4px; font-size: 14px; cursor: pointer; }
 </style>
 </head>
 <body>
@@ -62,6 +65,18 @@ $result = $stmt->fetch(PDO::FETCH_ASSOC);
                 <dt>プロフィール</dt>
                 <dd><?= nl2br(h($result['profile'])) ?></dd>
             </dl>
+
+            <!-- ここは会員専用ページ。企業担当者だけが編集・削除できる -->
+            <div class="actions">
+                <!-- 編集は edit.php へ。idをGETで渡す -->
+                <a class="edit-btn" href="edit.php?id=<?= h($result['id']) ?>">編集する</a>
+
+                <!-- 削除は必ずPOSTで。onsubmitで最終確認をはさむ -->
+                <form method="POST" action="delete.php" onsubmit="return confirm('この人材データを削除します。よろしいですか？');">
+                    <input type="hidden" name="id" value="<?= h($result['id']) ?>">
+                    <button type="submit" class="delete-btn">削除する</button>
+                </form>
+            </div>
         <?php else: ?>
             <p>該当する人材データが見つかりませんでした。</p>
         <?php endif; ?>
